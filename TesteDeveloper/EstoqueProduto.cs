@@ -13,10 +13,23 @@ namespace TesteDeveloper
         /// </summary>
         public string Referencia { get; set; }
 
+        private int _saldoEstoque;
+
         /// <summary>
         /// Quantidade em estoque
         /// </summary>
-        public int SaldoEstoque { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Lançada ao atribuir um valor negativo</exception>
+        public int SaldoEstoque
+        {
+            get => _saldoEstoque;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "SaldoEstoque não pode ser negativo");
+
+                _saldoEstoque = value;
+            }
+        }
 
         public override bool Equals(object obj)
         {
@@ -25,13 +38,14 @@ namespace TesteDeveloper
 
         public bool Equals(EstoqueProduto other)
         {
+            // Case-insensitive: referência de produto é a mesma independente de maiúsculas/minúsculas
             return other != null &&
-                   Referencia == other.Referencia;
+                   string.Equals(Referencia, other.Referencia, StringComparison.OrdinalIgnoreCase);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Referencia);
+            return HashCode.Combine(Referencia?.ToUpperInvariant());
         }
 
         public static bool operator ==(EstoqueProduto left, EstoqueProduto right)

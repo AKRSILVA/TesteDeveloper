@@ -27,6 +27,8 @@ namespace TesteDeveloper
         /// <param name="referencia">Identificador da referência/produto</param>
         /// <param name="quantidadeRequerida">Quantidade requerida</param>
         /// <returns>Indica se a quantidade requerida existe ou não no estoque</returns>
+        /// <exception cref="ArgumentException">Lançada quando <paramref name="referencia"/> é nula ou vazia</exception>
+        /// <exception cref="KeyNotFoundException">Lançada quando <paramref name="referencia"/> não está cadastrada no estoque</exception>
         public bool EstoqueDisponivel(string referencia, int quantidadeRequerida)
         {
             return GetSaldo(referencia) >= quantidadeRequerida;
@@ -37,9 +39,17 @@ namespace TesteDeveloper
         /// </summary>
         /// <param name="referencia">Identificador da referência/produto</param>
         /// <returns>Saldo de estoque</returns>
+        /// <exception cref="ArgumentException">Lançada quando <paramref name="referencia"/> é nula ou vazia</exception>
+        /// <exception cref="KeyNotFoundException">Lançada quando <paramref name="referencia"/> não está cadastrada no estoque</exception>
         public int GetSaldo(string referencia)
         {
-            var estoqueProduto = _estoques.FirstOrDefault(e => e.Referencia == referencia);
+            // Validação explícita evita que referência nula/vazia caia direto no KeyNotFoundException
+            // (uso incorreto da API deve ser distinguido de "referência legitimamente não encontrada")
+            if (string.IsNullOrEmpty(referencia))
+                throw new ArgumentException("Referência não pode ser nula ou vazia", nameof(referencia));
+
+            // Comparação case-insensitive: referência de produto é tratada como o mesmo item independente de maiúsculas/minúsculas
+            var estoqueProduto = _estoques.FirstOrDefault(e => string.Equals(e.Referencia, referencia, StringComparison.OrdinalIgnoreCase));
 
             if (estoqueProduto == null)
                 throw new KeyNotFoundException($"Saldo indisponível para o item {referencia}");
