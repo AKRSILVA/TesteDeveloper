@@ -6,7 +6,7 @@ namespace TesteDeveloper
     /// <summary>
     /// Estrutura para saldo de estoque da referência
     /// </summary>
-    public class EstoqueProduto : IEquatable<EstoqueProduto>
+    public class EstoqueProduto : IEquatable<EstoqueProduto> // IEquatable comparara a classe com outra classe do mesmo tipo, para verificar se são iguais
     {
         /// <summary>
         /// Identificador da referência/produto
@@ -20,7 +20,7 @@ namespace TesteDeveloper
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as EstoqueProduto);
+            return Equals(obj as EstoqueProduto); // Chama o método Equals da interface IEquatable
         }
 
         public bool Equals(EstoqueProduto other)

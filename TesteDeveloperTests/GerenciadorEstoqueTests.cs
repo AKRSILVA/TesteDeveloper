@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TesteDeveloper.Tests
 {
-    [TestFixture()]
+    [TestFixture()] // Indica que a classe é um conjunto de testes
     public class GerenciadorEstoqueTests
     {
         private GerenciadorEstoque gerenciadorEstoque;
@@ -35,7 +35,8 @@ namespace TesteDeveloper.Tests
         [TestCase("E6423", 11, false)]
         public void EstoqueDisponivelTest(string referencia, int quantidadeRequerida, bool expected)
         {
-            Assert.AreEqual(gerenciadorEstoque.EstoqueDisponivel(referencia, quantidadeRequerida), expected);
+            // Antes: Assert.AreEqual(gerenciadorEstoque.EstoqueDisponivel(referencia, quantidadeRequerida), expected);
+            Assert.AreEqual(expected, gerenciadorEstoque.EstoqueDisponivel(referencia, quantidadeRequerida));
         }
 
         [Test()]
@@ -45,10 +46,11 @@ namespace TesteDeveloper.Tests
         [TestCase("E6423", 7)]
         public void GetSaldoTest(string referencia, int expected)
         {
-            Assert.AreEqual(gerenciadorEstoque.GetSaldo(referencia), expected);
+            // Antes: Assert.AreEqual(gerenciadorEstoque.GetSaldo(referencia), expected);
+            Assert.AreEqual(expected, gerenciadorEstoque.GetSaldo(referencia));
         }
 
-        [Test()]
+        [Test()] // Teste do método ToString da classe GerenciadorEstoque -- execução independente
         public void ToStringTest()
         {
             string expected = "Referência: A2342 Saldo: 10\nReferência: B8765 Saldo: 4\nReferência: C9546 Saldo: 6\nReferência: D7862 Saldo: 45\nReferência: E6423 Saldo: 7";

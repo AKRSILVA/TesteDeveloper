@@ -1,18 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>.NETCoreApp,Version=v3.1</TargetFramework>
+    <!-- Antes: <TargetFramework>.NETCoreApp,Version=v3.1</TargetFramework> (EOL desde dez/2022) -->
+    <!-- net8.0 tambem foi tentado, mas so o runtime 10.x esta instalado nesta maquina e nao ha roll-forward entre majors por padrao -->
+    <TargetFramework>net10.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
-    <PackageReference Include="coverlet.collector" Version="1.2.0" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <!-- Versoes antigas traziam Newtonsoft.Json 9.0.1 (NU1903, vulnerabilidade conhecida) como dependencia transitiva -->
+    <!-- Antes: Microsoft.NET.Test.Sdk 16.5.0 -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <!-- Antes: MSTest.TestAdapter 2.1.0 -->
+    <PackageReference Include="MSTest.TestAdapter" Version="4.3.2" />
+    <!-- Antes: MSTest.TestFramework 2.1.0 -->
+    <PackageReference Include="MSTest.TestFramework" Version="4.3.2" />
+    <!-- Antes: coverlet.collector 1.2.0 -->
+    <PackageReference Include="coverlet.collector" Version="10.0.1" />
+    <!-- Antes: NUnit 3.12.0 -->
+    <PackageReference Include="NUnit" Version="4.6.1" />
+    <!-- Antes: NUnit3TestAdapter 3.15.1 -->
+    <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>

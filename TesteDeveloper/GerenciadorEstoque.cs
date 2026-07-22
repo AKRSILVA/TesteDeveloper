@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TesteDeveloper
 {
@@ -14,7 +15,7 @@ namespace TesteDeveloper
         /// <summary>
         /// Construtor da classe
         /// </summary>
-        /// <param name="estoques">Saldos de estoquee por referência</param>
+        /// <param name="estoques">Saldos de estoque por referência</param>
         public GerenciadorEstoque(IList<EstoqueProduto> estoques)
         {
             _estoques = estoques ?? throw new ArgumentNullException(nameof(estoques));
@@ -28,8 +29,7 @@ namespace TesteDeveloper
         /// <returns>Indica se a quantidade requerida existe ou não no estoque</returns>
         public bool EstoqueDisponivel(string referencia, int quantidadeRequerida)
         {
-            //TODO - Implemente sua lógica para validar o estoque da referência contra a quantidade requerida
-            //Dica: Os estoques estão na lista _estoques inicializada no construtor
+            return GetSaldo(referencia) >= quantidadeRequerida;
         }
 
         /// <summary>
@@ -39,8 +39,12 @@ namespace TesteDeveloper
         /// <returns>Saldo de estoque</returns>
         public int GetSaldo(string referencia)
         {
-            //TODO - Implemente sua lógica para buscar e retornar o estoque da referência
-            //Dica: Os estoques estão na lista _estoques inicializada no construtor
+            var estoqueProduto = _estoques.FirstOrDefault(e => e.Referencia == referencia);
+
+            if (estoqueProduto == null)
+                throw new KeyNotFoundException($"Saldo indisponível para o item {referencia}");
+
+            return estoqueProduto.SaldoEstoque;
         }
 
 
@@ -54,8 +58,7 @@ namespace TesteDeveloper
         /// <returns>String formatada</returns>
         public override string ToString()
         {
-            //TODO - Implemente sua lógica para formatar uma string no formato esperado
-            //Dica: Os estoques estão na lista _estoques inicializada no construtor
+            return string.Join("\n", _estoques.Select(e => $"Referência: {e.Referencia} Saldo: {e.SaldoEstoque}"));
         }
 
 
