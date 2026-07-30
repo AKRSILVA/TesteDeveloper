@@ -76,14 +76,14 @@ namespace TesteDeveloper.Tests
         public void GetSaldoReferenciaInexistenteTest()
         {
             var ex = Assert.Throws<KeyNotFoundException>(() => gerenciadorEstoque.GetSaldo("XPTO"));
-            Assert.AreEqual("Saldo indisponível para o item XPTO", ex.Message);
+            Assert.AreEqual("Produto não cadastrado: XPTO", ex.Message);
         }
 
         [Test()] // Confirma que EstoqueDisponivel propaga o mesmo erro de GetSaldo para referência não cadastrada
         public void EstoqueDisponivelReferenciaInexistenteTest()
         {
             var ex = Assert.Throws<KeyNotFoundException>(() => gerenciadorEstoque.EstoqueDisponivel("XPTO", 1));
-            Assert.AreEqual("Saldo indisponível para o item XPTO", ex.Message);
+            Assert.AreEqual("Produto não cadastrado: XPTO", ex.Message);
         }
 
         [Test()] // Confirma que o construtor rejeita lista nula

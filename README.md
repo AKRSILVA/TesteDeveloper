@@ -64,7 +64,7 @@ Pode enviar o link do seu próprio repositório (Deixe o repositório público) 
 
 ### Métodos implementados
 
-- **`GetSaldo(referencia)`** - busca o produto na lista `_estoques` por `Referencia` e retorna `SaldoEstoque`. Se a referência não existir, lança `KeyNotFoundException` com a mensagem `"Saldo indisponível para o item {referencia}"`.
+- **`GetSaldo(referencia)`** - busca o produto na lista `_estoques` por `Referencia` e retorna `SaldoEstoque`. Se a referência não existir, lança `KeyNotFoundException` com a mensagem `"Produto não cadastrado: {referencia}"`.
 - **`EstoqueDisponivel(referencia, quantidadeRequerida)`** - reaproveita `GetSaldo` e compara o saldo com a quantidade requerida (`saldo >= quantidadeRequerida`). Por reaproveitar `GetSaldo`, referência inexistente também lança `KeyNotFoundException`.
 - **`ToString()`** - formata cada item da lista como `Referência: {Referencia} Saldo: {SaldoEstoque}`, unindo as linhas com `\n` (sem quebra de linha final).
 

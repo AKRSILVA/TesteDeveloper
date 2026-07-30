@@ -52,7 +52,7 @@ namespace TesteDeveloper
             var estoqueProduto = _estoques.FirstOrDefault(e => string.Equals(e.Referencia, referencia, StringComparison.OrdinalIgnoreCase));
 
             if (estoqueProduto == null)
-                throw new KeyNotFoundException($"Saldo indisponível para o item {referencia}");
+                throw new KeyNotFoundException($"Produto não cadastrado: {referencia}");
 
             return estoqueProduto.SaldoEstoque;
         }
